@@ -26,26 +26,32 @@ class TimerWidget extends ConsumerWidget {
     final Function stopFunc = ref.read(timerStateProvider.notifier).stop;
     final Function pauseFunc = ref.read(timerStateProvider.notifier).pause;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text("Timer"),
         Text(time.toString()),
-        ElevatedButton(
-          onPressed: () {
-            startFunc();
-          },
-          child: Text("Start"),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            pauseFunc();
-          },
-          child: Text("Pause"),
-        ),
-        ElevatedButton(
-          onPressed: () {
-            stopFunc();
-          },
-          child: Text("Stop"),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                startFunc();
+              },
+              child: Text("Start"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                pauseFunc();
+              },
+              child: Text("Pause"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                stopFunc();
+              },
+              child: Text("Stop"),
+            ),
+          ],
         ),
       ],
     );

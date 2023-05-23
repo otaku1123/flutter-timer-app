@@ -6,6 +6,12 @@ import 'package:timer_app/state/timer_state.dart';
 class TimerStateNotifier extends StateNotifier<TimerState> {
   TimerStateNotifier() : super(TimerState());
 
+  @override
+  void dispose() {
+    state.timer?.cancel();
+    super.dispose();
+  }
+
   void start() {
     // タイマー開始中は何もしない
     if (state.timer != null) {
@@ -23,13 +29,11 @@ class TimerStateNotifier extends StateNotifier<TimerState> {
       int time = state.currentTime + 1;
       state = state.copyWith(timer: timer, time: time);
     });
+
+    state = state.copyWith(timer: timer);
   }
 
   void stop() {
-    if (state.timer == null) {
-      return;
-    }
-
     state.timer?.cancel();
     state = state.copyWith(timer: null, time: 0);
   }
