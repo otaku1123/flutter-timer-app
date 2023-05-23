@@ -29,7 +29,7 @@ class TimerWidget extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text("Timer"),
-        Text(time.toString()),
+        TimeWidget(),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -55,5 +55,20 @@ class TimerWidget extends ConsumerWidget {
         ),
       ],
     );
+  }
+}
+
+class TimeWidget extends ConsumerWidget {
+  String _timeToString(int time) {
+    final int hour = time ~/ 3600;
+    final int minute = (time % 3600) ~/ 60;
+    final int second = time % 60;
+    return "$hour:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final int time = ref.watch(timerStateProvider).currentTime;
+    return Text(_timeToString(time));
   }
 }
